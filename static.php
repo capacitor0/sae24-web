@@ -119,7 +119,7 @@ $topo = '
 <section>
 <h1>Topologie</h1>
 <div id="indent">
-<img src="res/topologie.png" alt="Topologie" style="width: 80vw;height: auto;margin-left: -20%;">>
+<img src="res/topologie.png" alt="Topologie" style="width: 80vw;height: auto;">>
 </div>
 </section>
 ';
