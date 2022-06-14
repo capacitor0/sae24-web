@@ -120,6 +120,40 @@ $topo = '
 <h1>Topologie</h1>
 <img src="res/topologie.png" alt="Topologie" style="width: 80vw;height: auto; margin-left: -5%">
 <div id="indent">
+<h3>Configurations communes à tous les équipements</h3>
+
+<div id="indent">
+<p>Définition du mot de passe (chiffré) pour le mode privilégié</p>
+<code>enable secret 5 $1$iHN8$4RGiriMWo8oYY68SbB34W/ (=> jCm&ZsN3w) </code>
+<p>Définition du mot de passe pour se connecter en SSH (utilisateur admin)</p>
+<code>username admin secret 5 $1$MbOK$.Hz0qLyW1uYEDnBV5aRK5/ (=> jHXw8vH&!)</code>
+<p>Envoie des logs sur un serveur du réseau (protocole Syslog)</p>
+<code>logging trap debugging
+logging facility local6
+logging host 10.10.99.254</code>
+<p>Configuration du serveur SNMP</p>
+<code>snmp-server community public RO 1 <-- n° ACL
+snmp-server community private RW 1
+snmp-server location Salle serveur, baie reseau A
+snmp-server contact clement@oziol.fr</code>
+<p>ACL n\'autorisant que le serveur de supervision à se connecter au SNMP</p>
+<code>access-list 1 permit 10.10.99.254
+access-list 1 deny   any</code>
+<p>Définition de tâches planifiées "kron"</p>
+<code>kron occurrence dump_clients in 1 recurring (Execution toutes les 1 minute)
+ policy-list dump_mac_address_table  (Seulement sur les commutateurs)
+
+kron occurrence bkp_cfg in 10 recurring (Execution toutes les 10 minutes)
+ policy-list backup_config
+
+kron policy-list dump_mac_address_table                                                       
+ cli show mac address-table | redirect tftp://10.10.99.254/client-tables/[NOM ÉQUIPEMENT].dump (Seulement sur les commutateurs)
+
+kron policy-list backup_config
+ cli show startup-config | redirect tftp://10.10.99.254/cfg-backup/[NOM ÉQUIPEMENT].config</code
+
+</div>
+</div>
 <h3>Routeur0</h3>
 <div id="indent">
 
@@ -130,15 +164,43 @@ $topo = '
 <li>DNAT de 10.200.200.2 (TCP 50999) vers 10.10.10.12 (TCP 80)</li>
 </ul>
 
-<h4>Détails de la configuration</h4>
-<p>Définition du mot de passe (chiffré) pour le mode privilégié</p>
-<code>enable secret 5 $1$iHN8$4RGiriMWo8oYY68SbB34W/</code>
-<p>Définition d\'une VRF (autre table de routage), cela sert à isoler le réseu de gestion (SNMP + SSH)</p>
-<code>ip vrf management
-description table reseau gestion</code>
-<p>Définition du mot de passe pour se connecter en SSH (utilisateur admin)</p>
-<code>username admin secret 5 $1$MbOK$.Hz0qLyW1uYEDnBV5aRK5/</code>
+<h4>Configurations spécifiques</h4>
 
+<p>Définition d\'une VRF (autre table de routage), cela sert à isoler le réseu de gestion (SNMP + SSH).</p>
+<code>ip vrf management
+ description table reseau gestion</code>
+<p>Paramètres sur l\'interface dédiée à l\'administration (VLAN 99)</p>
+<code>interface GigabitEthernet0/1.99
+ encapsulation dot1Q 99
+ ip vrf forwarding management
+ ip address 10.10.99.20 255.255.255.0
+ no routing dynamic</code>
+<p>Paramètres sur l\'interface côté WAN</p>
+<code>interface GigabitEthernet0/0
+ ip address 10.200.200.2 255.255.255.0
+ ip nat outside
+</code>
+<p>Paramètres sur une sous-interface pour VLAN</p>
+<code>interface GigabitEthernet0/1.10X
+ encapsulation dot1Q 10X
+ ip address 10.10.1X.254 255.255.255.0
+ ip helper-address 10.10.10.10
+ ip nat inside</code>
+
+ <p>Configuration du NAT pour sortir du réseau</p>
+ <code>ip nat inside source list 10 interface GigabitEthernet0/0 overload</code>
+<p>ACL pour l\'autorisation du NAT</p>
+<code>access-list 10 permit 10.10.0.0 0.0.255.255
+access-list 10 deny   any</code>
+
+ <p>Configuration du DNAT pour accéder au serveur Web</p>
+ <code>ip nat inside source static tcp 10.10.10.12 80 10.200.200.2 50999</code>
+</div>
+<h3>Configuration commune aux commutateurs</h3>
+<div id="indent">
+<p>Ajout d\'une adresse IP sur le VLAN de supervision</p>
+<code>interface Vlan99
+ ip address 10.10.99.6X 255.255.255.0</code>
 </div>
 </div>
 </section>
