@@ -38,7 +38,7 @@
         echo $home;
     
     } elseif ($_GET["page"] == "topologie") {
-        # code...
+       echo $topo;
     
     } elseif ($_GET["page"] == "devices") {
         deviceFlexGrid();
