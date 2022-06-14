@@ -118,8 +118,17 @@ $home = '<section id="sae24">
 $topo = '
 <section>
 <h1>Topologie</h1>
-<div id="indent">
 <img src="res/topologie.png" alt="Topologie" style="width: 80vw;height: auto; margin-left: -5%">
+<div id="indent">
+<h3>Routeur0</h3>
+<div id="indent">
+<h4>Fonction remplies</h4>
+<ul>
+<li>Routage entre les VLAN</li>
+<li>NAT avec l\'interface tap0 de l\'objet WAN</li>
+<li>DNAT de 10.200.200.2 (TCP 50999) vers 10.10.10.12 (TCP 80)</li>
+<ul>
+</div>
 </div>
 </section>
 ';
