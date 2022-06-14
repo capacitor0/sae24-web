@@ -131,9 +131,13 @@ $topo = '
 </ul>
 
 <h4>Détails de la configuration</h4>
-<code>test test
-test tes
-</code>
+<p>Définition du mot de passe (chiffré) pour le mode privilégié</p>
+<code>enable secret 5 $1$iHN8$4RGiriMWo8oYY68SbB34W/</code>
+<p>Définition d\'une VRF (autre table de routage), cela sert à isoler le réseu de gestion (SNMP + SSH)</p>
+<code>ip vrf management
+description table reseau gestion</code>
+<p>Définition du mot de passe pour se connecter en SSH (utilisateur admin)</p>
+<code>username admin secret 5 $1$MbOK$.Hz0qLyW1uYEDnBV5aRK5/</code>
 
 </div>
 </div>
