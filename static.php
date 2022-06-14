@@ -242,7 +242,7 @@ $services = '
 </div>
 <h1>API de supervision des équipements</h1>
 <div id="indent">
-<p>API développée en Python (framewrok Flask). Elle est très important au processus de détection de d\'enregistrement des attaques : c\'est elle qui est appelée lors de la dectection de DHCP DISCOVER suspicieux au niveau des commutateurs pour traiter et corréler les informations.</p>
+<p>API développée en Python (framewrok Flask). Elle est très important au processus de détection de d\'enregistrement des attaques : c\'est elle qui est appelée lors de la dectection de DHCP DISCOVER suspicieux au niveau des commutateurs pour traiter et corréler les informations. Les données sont stockées dans une base SQLite.</p>
 <p>Elle met à disposition différents endpoints :</p>
 <ul>
 <li>/get-last-backup</li>
