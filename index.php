@@ -28,14 +28,16 @@
 
 
     <?php
-    require "static.php";
-    if !(isset($_GET["page"])) {
+    require_once "static.php";
+    require_once "devices.php";
+
+    if (!isset($_GET["page"])) {
 
     } elseif ($_GET["page"] == "topologie") {
         # code...
     
     } elseif ($_GET["page"] == "devices") {
-        # code...
+        
     
     } elseif ($_GET["page"] == "attacks") {
         # code...
@@ -44,7 +46,9 @@
         echo $skills;
     
     } elseif ($_GET["page"] == "issues") {
-        # code...
+        echo $issues;
+    } else {
+        echo "aaaa";
     }
 
     ?>

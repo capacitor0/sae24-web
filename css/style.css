@@ -8,7 +8,7 @@ body {
   
   header {
     color: white;
-    background: linear-gradient(120deg, #5c258d, #339acc);
+    background: linear-gradient(120deg, #f74c06, #f9bc2c);
     overflow: auto;
     /* pour que le header remplisse le haut*/
     text-align: center;
@@ -44,7 +44,7 @@ body {
   
   section h1 {
     font-size: xxx-large;
-    color: #339acc;
+    color: #f9bc2c;
   }
   
   #indent {
