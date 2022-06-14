@@ -1,138 +1,150 @@
 body {
-    font-family: Chivo, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 0%;
-    /* remplissage de toute la page*/
-  }
-  
-  header {
-    color: white;
-    background: linear-gradient(120deg, #f74c06, #f9bc2c);
-    overflow: auto;
-    /* pour que le header remplisse le haut*/
-    text-align: center;
-    padding-bottom: 20px;
-  }
-  
-  header a {
-    display: inline-block;
-    color: white;
-    text-decoration: none;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: .3rem;
-    padding: .6rem .9rem;
-  }
-  
-  header a:hover {
-    transition: background-color .5s;
-    /* permet d'avoir un effet progressif*/
-    text-decoration: none;
-    background-color: rgba(255, 255, 255, .5);
-  }
-  
-  section {
-    padding-left: 15%;
-    padding-right: 15%;
-  }
-  
-  section p {
-    text-align: justify;
-    font-size: larger;
-  }
-  
-  section h1 {
-    font-size: xxx-large;
-    color: #f9bc2c;
-  }
-  
-  #indent {
-    padding-left: 5%;
-  }
-  
-  /*formattage de la table*/
-  tr td:nth-child(2) {
-    padding-left: 5%;
-    width: 70%;
-  }
-  
-  tr td:nth-child(1) {
-    border-right: 1px solid black;
-    width: 20%;
-  }
-  
-  table {
-    border-spacing: 0 20px;
-    /*espacement entre les rows*/
-  }
-  
-  li[id^="part"] {
-    /* Opérateur '^=' => commence par, ici : tous les li dont l'id commence par "part"*/
-    list-style-type: none;
-  }
-  
-  #part-res::before {
-    content: '\f6ff';
-    /*https://fontawesome.com/v5.15/icons/network-wired?style=solid*/
-    font-family: 'FontAwesome';
-    margin-left: -2em;
-    padding-right: 5px;
-    color: #0074D9;
-  }
-  
-  #part-prog::before {
-    content: '\f121';
-    /*https://fontawesome.com/v5.15/icons/code?style=solid*/
-    font-family: 'FontAwesome';
-    margin-left: -2em;
-    padding-right: 5px;
-    color: #0074D9;
-  }
-  
-  #part-info::before {
-    content: '\f233';
-    /*https://fontawesome.com/v5.15/icons/server?style=solid*/
-    font-family: 'FontAwesome';
-    margin-left: -2em;
-    padding-right: 5px;
-    color: #0074D9;
-  }
-  
-  #part-cyber::before {
-    content: '\f3ed';
-    /*https://fontawesome.com/v5.15/icons/server?style=solid*/
-    font-family: 'FontAwesome';
-    margin-left: -2em;
-    padding-right: 5px;
-    color: #0074D9;
-  }
-  
-  #part-telco::before {
-    content: '\f879';
-    /*https://fontawesome.com/v5.15/icons/server?style=solid*/
-    font-family: 'FontAwesome';
-    margin-left: -2em;
-    padding-right: 5px;
-    color: #0074D9;
-  }
-  
-  section[id=cv] img {
-    width: auto;
-    height: 50px;
-    display: inline;
-  }
-  
-  #sae24 h3 {
-    text-decoration: underline;
-  }
-  
-  #sae24 img {
-    width: 60vw;
-    height: auto;
-  }
-  
-  #time {
-    text-align: center;
-    font-size: 1.5em
-  }
+  font-family: Chivo, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0%;
+  /* remplissage de toute la page*/
+}
+
+header {
+  color: white;
+  background: linear-gradient(120deg, #f74c06, #f9bc2c);
+  overflow: auto;
+  /* pour que le header remplisse le haut*/
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+header a {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: .3rem;
+  padding: .6rem .9rem;
+}
+
+header a:hover {
+  transition: background-color .5s;
+  /* permet d'avoir un effet progressif*/
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, .5);
+}
+
+section {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+section p {
+  text-align: justify;
+  font-size: larger;
+}
+
+section h1 {
+  font-size: xxx-large;
+  color: #f9bc2c;
+}
+
+#indent {
+  padding-left: 5%;
+}
+
+/*formattage de la table*/
+tr td:nth-child(2) {
+  padding-left: 5%;
+  width: 70%;
+}
+
+tr td:nth-child(1) {
+  border-right: 1px solid black;
+  width: 20%;
+}
+
+table {
+  border-spacing: 0 20px;
+  /*espacement entre les rows*/
+}
+
+li[id^="part"] {
+  /* Opérateur '^=' => commence par, ici : tous les li dont l'id commence par "part"*/
+  list-style-type: none;
+}
+
+#part-res::before {
+  content: '\f6ff';
+  /*https://fontawesome.com/v5.15/icons/network-wired?style=solid*/
+  font-family: 'FontAwesome';
+  margin-left: -2em;
+  padding-right: 5px;
+  color: #0074D9;
+}
+
+#part-prog::before {
+  content: '\f121';
+  /*https://fontawesome.com/v5.15/icons/code?style=solid*/
+  font-family: 'FontAwesome';
+  margin-left: -2em;
+  padding-right: 5px;
+  color: #0074D9;
+}
+
+#part-info::before {
+  content: '\f233';
+  /*https://fontawesome.com/v5.15/icons/server?style=solid*/
+  font-family: 'FontAwesome';
+  margin-left: -2em;
+  padding-right: 5px;
+  color: #0074D9;
+}
+
+#part-cyber::before {
+  content: '\f3ed';
+  /*https://fontawesome.com/v5.15/icons/server?style=solid*/
+  font-family: 'FontAwesome';
+  margin-left: -2em;
+  padding-right: 5px;
+  color: #0074D9;
+}
+
+#part-telco::before {
+  content: '\f879';
+  /*https://fontawesome.com/v5.15/icons/server?style=solid*/
+  font-family: 'FontAwesome';
+  margin-left: -2em;
+  padding-right: 5px;
+  color: #0074D9;
+}
+
+section[id=cv] img {
+  width: auto;
+  height: 50px;
+  display: inline;
+}
+
+#sae24 h3 {
+  text-decoration: underline;
+}
+
+#sae24 img {
+  width: 60vw;
+  height: auto;
+}
+
+#time {
+  text-align: center;
+  font-size: 1.5em
+}
+
+.wrapper-devices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.wrapper-devices > div {
+  padding: 10px;
+  border: 2px solid #f74c06;
+  border-radius: 10px;
+  margin: 10px;
+}

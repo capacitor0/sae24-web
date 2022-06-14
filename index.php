@@ -30,6 +30,7 @@
     <?php
     require_once "static.php";
     require_once "devices.php";
+    require_once "attaque.php";
 
     if (!isset($_GET["page"])) {
 
@@ -37,7 +38,7 @@
         # code...
     
     } elseif ($_GET["page"] == "devices") {
-        
+        deviceFlexGrid();
     
     } elseif ($_GET["page"] == "attacks") {
         # code...
@@ -47,34 +48,18 @@
     
     } elseif ($_GET["page"] == "issues") {
         echo $issues;
+
+    } elseif ($_GET["page"] == "attaque") {
+        if (!isset($_GET["dev"])) {
+            echo "<h1>IP VIDE !</h1>";
+        } else {
+            showAttaques($_GET["dev"]);
+        }
     } else {
         echo "aaaa";
     }
 
     ?>
-        <section id="home">
-            <h1>Accueil</h1>
-            <div id="indent">
-                <p>Je m’appelle Clément OZIOL, je poursuis actuellement un Bachelor Universitaire de
-                    Technologie en Réseaux et Télécommunications à l'Institut universitaire de technologie de Clermont-Ferrand (63). On peut me distinguer par mon sérieux, ma curiosité et
-                    mon
-                    attention au détail ce qui m’est très utile dans ce secteur. Passionné d’informatique depuis le plus
-                    jeune âge j’ai rapidement développé un intérêt pour la cyber sécurité. Je souhaite donc m’orienter
-                    vers
-                    une école d’ingénieur pour me spécialiser d’autant plus dans ce domaine.</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <section id="cv">
-            <h1><em>Curriculum vitæ</em></h1>
-            <div id="indent">
-                <img src="res/uk.png"><img src="res/us.png">
-                <p>English version: </i><a href="cv/CV_OZIOL_EN.pdf" target="_blank">CV_OZIOL_EN.pdf</a></p>
-                <img src="res/fr.png">
-                <p>Version française: </i><a href="cv/CV_OZIOL_FR.pdf" target="_blank">CV_OZIOL_FR.pdf</a></p>
-            </div>
-        </section>
         <section id="contact">
             <h1>Contact</h1>
             <div id="indent">
