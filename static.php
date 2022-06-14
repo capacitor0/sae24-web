@@ -114,5 +114,16 @@ $home = '<section id="sae24">
     </div>
 </div>
 </section>';
+
+$topo = '
+<section>
+<h1>Topologie</h1>
+<div id="indent">
+<img src="res/topologie.png" alt="Ordonnancement des tâches">
+</div>
+</section>
+';
+
 ?>
+
 
