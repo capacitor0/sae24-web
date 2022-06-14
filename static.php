@@ -128,11 +128,11 @@ $topo = '
 <li>NAT avec l\'interface tap0 de l\'objet WAN</li>
 <li>DNAT de 10.200.200.2 (TCP 50999) vers 10.10.10.12 (TCP 80)</li>
 <ul>
-</div>
 <h4>Détails de la configuration</h4>
 <code>test test
 test tes
 </code>
+</div>
 </div>
 </section>
 ';
