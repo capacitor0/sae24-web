@@ -119,8 +119,9 @@ $topo = '
 <section>
 <h1>Topologie</h1>
 <img src="res/topologie.png" alt="Topologie" style="width: 80vw;height: auto; margin-left: -5%">
-<div id="indent">
 <h3>Configurations communes à tous les équipements</h3>
+
+
 
 <div id="indent">
 <p>Définition du mot de passe (chiffré) pour le mode privilégié</p>
@@ -150,8 +151,18 @@ kron policy-list dump_mac_address_table
  cli show mac address-table | redirect tftp://10.10.99.254/client-tables/[NOM ÉQUIPEMENT].dump (Seulement sur les commutateurs)
 
 kron policy-list backup_config
- cli show startup-config | redirect tftp://10.10.99.254/cfg-backup/[NOM ÉQUIPEMENT].config</code
+ cli show startup-config | redirect tftp://10.10.99.254/cfg-backup/[NOM ÉQUIPEMENT].config</code>
 
+<p>Ajout d\'une adresse IP sur le VLAN de supervision (spécifique aux commutateurs)</p>
+<code>interface Vlan99
+ ip address 10.10.99.6X 255.255.255.0</code>
+<p>Configuration du DHCP Snooping (spécifique aux commutateurs)</p>
+<code>ip dhcp snooping vlan 99-103
+no ip dhcp snooping information option (désactive l\'option 82, non configuré sur notre serveur DHCP)
+ip dhcp snooping</code>
+<code>interface GigabitEthernetx/y (interface de confiance, typiquement interface sur un switch edge avec trunk vers le coeur de réseau)
+[...]
+ip dhcp snooping trust</code>
 </div>
 </div>
 <h3>Routeur0</h3>
@@ -196,15 +207,80 @@ access-list 10 deny   any</code>
  <p>Configuration du DNAT pour accéder au serveur Web</p>
  <code>ip nat inside source static tcp 10.10.10.12 80 10.200.200.2 50999</code>
 </div>
-<h3>Configuration commune aux commutateurs</h3>
+<h3>SwitchFederateur0</h3>
 <div id="indent">
-<p>Ajout d\'une adresse IP sur le VLAN de supervision</p>
-<code>interface Vlan99
- ip address 10.10.99.6X 255.255.255.0</code>
+<p>Configuration du STP</p>
+<code>spanning-tree vlan 1,99-103 root primary (racine primaire)</code>
 </div>
+<h3>SwitchFederateur1</h3>
+<div id="indent">
+<p>Configuration du STP</p>
+<code>spanning-tree vlan 1,99-103 root secondary (racine secondaire)</code>
 </div>
 </section>
 ';
+
+$services = '
+<section>
+<h1>Supervision</h1>
+<div id="indent">
+<p>Solution basée sur LibreNMS</p>
+<ul>
+<li>Collecte de diverses statistiques en SNMP</li>
+<li>Collecte des logs (protocole syslog)</li>
+<li>Visualisations (graphiques, weathermap)</li>
+<li>Alerte pour détécter une attaque à partir des logs (détaillé dans la partie attaque)</li>
+</ul>
+<p><em>Météo des liens: </em></p>
+<img src="res/weather.png" alt="Météo" style="width: 50vw;height: auto;">
+
+<p><em>Informations sur un équipement : </em></p>
+<img src="res/info.png" alt="Météo" style="width: 50vw;height: auto;">
+
+<p><em>Alerte de detection à partir des logs : </em></p>
+<img src="res/alert.png" alt="Météo" style="width: 60vw;height: auto;">
+</div>
+<h1>DHCP</h1>
+<div id="indent">
+<p>Permet d\'attribuer une configuration IP aux machines</p>
+<p>Configuration en place :</p>
+<code>
+### /etc/dhcp/dhcpd.conf
+
+# Serveur DHCP principal du réseau
+authoritative;
+
+# Serveurs DNS communs aux pools
+option domain-name-servers 192.168.118.129, 192.168.118.130;
+
+# Pool VLAN 101
+subnet 10.10.11.0 netmask 255.255.255.0 {
+	range 10.10.11.10 10.10.11.250;
+	option routers 10.10.11.254;
+
+}
+
+# Pool VLAN 102
+subnet 10.10.12.0 netmask 255.255.255.0 {
+	range 10.10.12.10 10.10.12.250;
+	option routers 10.10.12.254;
+}
+
+# Pool VLAN 103
+subnet 10.10.13.0 netmask 255.255.255.0 {
+	range 10.10.13.10 10.10.13.250;
+	option routers 10.10.13.254;
+}
+
+# Pool serveur (pour compatibilité)
+subnet 10.10.10.0 netmask 255.255.255.0 {}
+
+</code>
+</div>
+</section>
+
+';
+
 
 ?>
 

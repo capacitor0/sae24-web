@@ -18,6 +18,7 @@
             <a href="index.php?page=home">Accueil</a>
             <a href="index.php?page=topologie">Topologie</a>
             <a href="index.php?page=devices">Matériels</a>
+            <a href="index.php?page=services">Services</a>
             <a href="index.php?page=attacks">Attaques</a>
             <a href="index.php?page=skills">Compétences</a>
             <a href="index.php?page=issues">Problèmes rencontrés</a>
@@ -27,42 +28,41 @@
     <main>
 
 
-    <?php
-    require "static.php";
-    require "devices.php";
-    require "attaque.php";
+        <?php
+        require "static.php";
+        require "devices.php";
+        require "attaque.php";
 
-    if (!isset($_GET["page"])) {
+        if (!isset($_GET["page"])) {
+            header("Location: /index.php?page=home");
+        } elseif ($_GET["page"] == "home") {
+            echo $home;
+        } elseif ($_GET["page"] == "topologie") {
+            echo $topo;
+        } elseif ($_GET["page"] == "devices") {
+            deviceFlexGrid();
+        } elseif ($_GET["page"] == "services") {
+            echo $services;
 
-    } elseif ($_GET["page"] == "home") {
-        echo $home;
-    
-    } elseif ($_GET["page"] == "topologie") {
-       echo $topo;
-    
-    } elseif ($_GET["page"] == "devices") {
-        deviceFlexGrid();
-    
-    } elseif ($_GET["page"] == "attacks") {
-        # code...
-    
-    } elseif ($_GET["page"] == "skills") {
-        echo $skills;
-    
-    } elseif ($_GET["page"] == "issues") {
-        echo $issues;
+        } elseif ($_GET["page"] == "attacks") {
+            # code...
 
-    } elseif ($_GET["page"] == "attaque") {
-        if (!isset($_GET["dev"])) {
-            echo "<h1>IP VIDE !</h1>";
+        } elseif ($_GET["page"] == "skills") {
+            echo $skills;
+        } elseif ($_GET["page"] == "issues") {
+            echo $issues;
+        } elseif ($_GET["page"] == "attaque") {
+            if (!isset($_GET["dev"])) {
+                echo "<h1>IP VIDE !</h1>";
+            } else {
+                showAttaques($_GET["dev"]);
+            }
         } else {
-            showAttaques($_GET["dev"]);
+            header("Location: /index.php?page=home");
         }
-    } else {
-        echo "aaaa";
-    }
 
-    ?>
+        ?>
+    </main>
         <section id="contact">
             <h1>Contact</h1>
             <div id="indent">
@@ -71,7 +71,7 @@
                         capacitor0</a></p>
             </div>
         </section>
-    </footer>
+        </footer>
 </body>
 
 </html>
