@@ -67,4 +67,52 @@ $issues = '<section>
 </div>
 </section>';
 
+$home = '<section id="sae24">
+<h1>SAE24</h1>
+<div id="indent">
+
+    <div id="indent">
+        <p id="time">Début du projet le <b>19 Mai 2022</b> et fin le <b>15 Juin 2022</b> pour évaluation.
+        </p>
+        <h3>Descriptif</h3>
+        <div id="indent">
+            <p>Réalisation d\'une petite infrastructure informatique dans un environnement de
+                simulation de réseaux (<a href="https://www.gns3.com/">GNS3</a>) dans un cadre Universitaire.</p>
+
+            <p>Le but est de construire le réseau d\'une entreprise contenant plusieurs services (service
+                technique, ressources humaines…).
+                Ce réseau doit contenir les éléments suivants : plusieurs serveurs, plusieurs services
+                réseaux (DHCP, FTP, HTTP…) ainsi que des postes clients.
+            </p>
+
+            <h4>Points clés abordés :</h4>
+            <div id="indent">
+                <ul>
+                    <li>Détection et mitigation d\'attaques sur le protocole DHCP (<em><a
+                                href="https://fr.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">Dynamic
+                                Host Configuration Protocol</a></em>)</li>
+                    <li>Sécurité</li>
+                    <li>Analyse de journaux applicatifs</li>
+                    <li>Redondance</li>
+                    <li>Gestion de projet</li>
+                </ul>
+            </div>
+
+            <h4>Objectifs :</h4>
+            <div id="indent">
+                <ul>
+                    <li>Mettre a profit ce qui a été étudié durant l\'année</li>
+                    <li>Être autonome et apprendre par soi-même</li>
+                    <li>Acquérir de nouvelles compétences</li>
+                </ul>
+            </div>
+            <h4>Ordonnancement prévisionnel du projet :</h4>
+            <img src="res/planning.png" alt="Ordonnancement des tâches">
+
+
+        </div>    
+    </div>
+</div>
+</section>';
 ?>
+

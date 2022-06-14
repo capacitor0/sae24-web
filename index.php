@@ -28,12 +28,15 @@
 
 
     <?php
-    require_once "static.php";
-    require_once "devices.php";
-    require_once "attaque.php";
+    require "static.php";
+    require "devices.php";
+    require "attaque.php";
 
     if (!isset($_GET["page"])) {
 
+    } elseif ($_GET["page"] == "home") {
+        echo $home;
+    
     } elseif ($_GET["page"] == "topologie") {
         # code...
     
