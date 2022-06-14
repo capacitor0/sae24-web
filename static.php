@@ -240,6 +240,121 @@ $services = '
 <p><em>Alerte de detection à partir des logs : </em></p>
 <img src="res/alert.png" alt="Météo" style="width: 60vw;height: auto;">
 </div>
+<h1>API de supervision des équipements</h1>
+<div id="indent">
+<p>API développée en Python (framewrok Flask). Elle est très important au processus de détection de d\'enregistrement des attaques : c\'est elle qui est appelée lors de la dectection de DHCP DISCOVER suspicieux au niveau des commutateurs pour traiter et corréler les informations.</p>
+<p>Elle met à disposition différents endpoints :</p>
+<ul>
+<li>/get-last-backup</li>
+<em>Permet de déterminer quand un matériel a été sauvegardé pour la dernière fois</em>
+<li>/log-event</li>
+<em>Permet de signaler une activité DHCP suspicieuse, le script détermine ensuite de qu\'elle interface elle provient.</em>
+<li>/get-logs</li>
+<em>Selon les paramètres passés : récupération des attaques pour un équipement ou récupération du nombre de celles-ci.</em>
+</ul>
+<p>Extrait du code (fichiers spécifiques à l\'ORM omis): </p>
+<code>
+[...]
+@app.route(\'/\', methods=[\'GET\'])
+def home():
+    return &quot;&lt;h1&gt;API de gestion des équipements.&lt;/h1&gt;&quot;
+
+
+@app.route(\'/get-last-backup\', methods=[\'GET\'])
+def get_last_backup():
+
+    CFG_PREFIX = \'/srv/tftp/cisco_data/cfg-backup/\'
+
+    dictFiles = {}
+
+    for file in os.listdir(CFG_PREFIX):
+        file_time_string = dt.fromtimestamp(os.path.getmtime(CFG_PREFIX + file))
+        dictFiles[file.replace(".dump", "")] = file_time_string.strftime("%d/%m/%Y à %H:%M")
+
+    return jsonify(dictFiles)
+
+@app.route(\'/log-event\', methods=[\'GET\'])
+def log_event():
+    class MAC_Record(object):
+        def __init__(self, rawRecord) -> None:
+            tab = []
+            for field in rawRecord.split(" "):
+                if field != "":
+                    tab.append(field.replace(\'\n\', \'\'))
+
+            self.vlan = tab[0]
+            self.mac = tab[1]
+            self.int = tab[3]
+
+        def toDict(self):
+            return {"vlan": self.vlan, "mac": self.mac, "port": self.int}
+
+    TABLES_PREFIX = \'/srv/tftp/cisco_data/client-tables/\'
+
+
+
+    ip = request.args.get("ip")
+    msg = request.args.get("msg")
+    lines = msg.split(\'\n\')
+
+    for ligne_log in lines:
+        if ligne_log != "":
+            
+            suspicious_mac = ligne_log.split(",")[2].replace(" chaddr: ", "")
+            source_mac = ligne_log.split(",")[3].replace(" MAC sa: ", "")
+
+            equipement = Equipement.query.filter_by(ip=ip).first()
+
+            try:
+                with open(TABLES_PREFIX + equipement.nom + ".dump", "r") as mac_table:
+                    lignes = mac_table.readlines()
+            except:
+                return jsonify("Erreur."), 500
+
+            tabRecords = [MAC_Record(ligne) for ligne in lignes[5:-1]]
+
+            for record in tabRecords:
+                if record.mac == source_mac:
+                    res_record = record
+
+            attack = Attaque(dt.now(), f"DHCP Discover suspicieux sur l\'interface {res_record.int}. Détails : MAC PC {res_record.mac}, VLAN {res_record.vlan}, MAC Déguisée {suspicious_mac}")
+            equipement.attaques.append(attack)
+            db_session.add(attack)
+            db_session.commit()
+
+
+    return jsonify("ok")
+
+@app.route(\'/get-logs\', methods=[\'GET\'])
+def get_logs():
+    
+    ip = request.args.get("ip")
+    count = request.args.get("count")
+
+    if ip == None:
+        return jsonify("Paramètre `ip` requis."), 500
+    
+    
+    equipement = Equipement.query.filter_by(ip=ip).first()
+
+    if equipement == None:
+        return jsonify("Équipement inexistant."), 500
+
+    attacks = Attaque.query.filter_by(dev_id=equipement.id)
+    
+    res = []
+
+    for attaque in attacks:
+        res.append(attaque.to_dict())
+
+    if count == "1":
+        return jsonify(len(res))
+    else:
+        return jsonify(res)
+
+[...]</code>
+</div>
+<div>
 <h1>DHCP</h1>
 <div id="indent">
 <p>Permet d\'attribuer une configuration IP aux machines</p>
@@ -276,6 +391,43 @@ subnet 10.10.13.0 netmask 255.255.255.0 {
 subnet 10.10.10.0 netmask 255.255.255.0 {}
 
 </code>
+</div>
+<h1>FTP</h1>
+<div id="indent">
+<p>Permet de la récupération de fichiers sur les stations (mode anonyme ou non)</p>
+<p>Configuration : </p>
+<code>
+# Connexion en mode anonyme
+anonymous_enable=YES
+
+# Activation de l\'écriture
+write_enable=YES
+
+# Chemin vers le rep. pour les connexions anonymes
+anon_root=/srv/ftp/pub
+
+# Bannière de connexion
+ftpd_banner=Bienvenue sur le serveur FTP, vous y trouverez divers scripts et outils.
+</code>
+</div>
+<h1>HTTP + PHP</h1>
+<div id="indent">
+<p>Requière les paquets nginx et php-fpm</p>
+<p>Pour activer la prise en charge PHP : </p>
+<code>
+### /etc/nginx/sites-available/default
+
+[...]
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+
+    # With php-fpm (or other unix sockets):
+    fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+    # With php-cgi (or other tcp sockets):
+    #fastcgi_pass 127.0.0.1:9000;
+}
+</code>
+
 </div>
 </section>
 
