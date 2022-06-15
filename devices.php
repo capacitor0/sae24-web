@@ -39,7 +39,7 @@ function deviceFlexGrid() {
         echo '<ul>';
         echo '<li><b>Last configuration backup :</b>  ' . $jsonLastUpdate[$nom . ".config"] . '</li>';
         if ($count != 0) {
-            $count = $count . '<a href="index.php?page=attaque&dev=' . $ip .'">Voir</a>';
+            $count = $count . '<a href="index.php?page=attaque&dev=' . $ip .'">View</a>';
         }
         echo '<li><b>Suspicious DHCP activity(ies) :</b> ' .  $count . '</li>';
         echo '</ul>';
