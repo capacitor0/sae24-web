@@ -168,8 +168,7 @@ code {
   border: 2px solid #f9bc2c; /* Green */
   border-radius: 5px;
   padding: 10px;
-  position: absolute;
-  bottom: 0;
+
 }
 
 #bouton > a {
