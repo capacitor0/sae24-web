@@ -59,10 +59,10 @@ $issues = '<section>
 <h1>Problèmes rencontrés</h1>
 <div id="indent">
 <ul>
-<li><p>Switchs Cisco Catalyst émulés avec Dynamips qui ne supportent pas le DHCP snooping. => Necessité d\'utiliser de nouvelles images IOSvL2 beaucoup plus gourmandes en ressources.</p></li>
-<li><p>Impossible de créer des liens à nouveau sur certains ports dans GNS3 après la mise en place d\'une capture réseau.</p></li>
-<li><p><a href="https://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/40367-camsnmp40367.html">Community string indexing</a> SNMP non fonctionnel. Necessité de récuperer les tables des addreses MAC connéctées via un "kron" IOS + utilisation d\'un serveur TFTP.</p></li>
-<li><p>Performances dégradées pour les connexions WAN => necessité d\'utiliser une interface de type tap0. (Procédure <a href="https://websistent.com/how-to-connect-gns3-to-the-internet/">ici</a>)
+<li><p>Cisco Catalyst switches emulated with Dynamips don\'t support DHCP snooping. => I had to use new images (Cicso VIRL IOSvL2, emulated with QEMU) which have much higher requirements in computer resources.</p></li>
+<li><p>Impossible to create links again on certain ports in GNS3 after launching and stopping a packet capture.</p></li>
+<li><p>SNMP <a href="https://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/40367-camsnmp40367.html">Community string indexing</a> not working. I had to get the table containing connected MAC addresses using an IOS "kron" combined with the usage of a TFTP server.</p></li>
+<li><p>Degraded WAN performance => I had to create and use a TAP interface inside GNS3. (Procedure <a href="https://websistent.com/how-to-connect-gns3-to-the-internet/">here</a>)
 </ul>
 </div>
 </section>';
