@@ -42,7 +42,7 @@ function deviceFlexGrid() {
             $count = $count . '<a href="index.php?page=attaque&dev=' . $ip .'">Voir</a>';
         }
         echo '<li><b>Activités DHCP suspicieuses détéctées :</b> ' .  $count . '</li>';
-        echo '<li><a href="http://172.25.249.7:7777/device/' . $libreNms[$ip] . '">Visualiser dans LibreNMS</a></li>';
+        echo '<li><a target="_blank" href="http://172.25.249.7:7777/device/' . $libreNms[$ip] . '">Visualiser dans LibreNMS</a></li>';
         echo '</ul>';
         echo '</div>';
     }
