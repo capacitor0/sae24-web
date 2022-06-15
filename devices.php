@@ -28,7 +28,7 @@ function deviceFlexGrid() {
     global $jsonLastUpdate;
     global $libreNms;
     echo '<section>
-    <h1>Matériels</h1>
+    <h1>Network devices</h1>
     <div id="indent">';
     echo '<div class="wrapper-devices">';
 
@@ -37,13 +37,13 @@ function deviceFlexGrid() {
         echo '<div>';
         echo '<h3>' . $nom . '</h3>';
         echo '<ul>';
-        echo '<li><b>Dernière sauvegarde de la configuration :</b> le ' . $jsonLastUpdate[$nom . ".config"] . '</li>';
+        echo '<li><b>Last configuration backup :</b>  ' . $jsonLastUpdate[$nom . ".config"] . '</li>';
         if ($count != 0) {
             $count = $count . '<a href="index.php?page=attaque&dev=' . $ip .'">Voir</a>';
         }
-        echo '<li><b>Activités DHCP suspicieuses détéctées :</b> ' .  $count . '</li>';
+        echo '<li><b>Suspicious DHCP activity :</b> ' .  $count . '</li>';
         echo '</ul>';
-        echo '<button id="bouton"><a target="_blank" href="http://172.25.249.7:7777/device/' . $libreNms[$ip] . '">Superviser</a></button>';
+        echo '<button id="bouton"><a target="_blank" href="http://172.25.249.7:7777/device/' . $libreNms[$ip] . '">Monitor</a></button>';
         echo '</div>';
     }
 
