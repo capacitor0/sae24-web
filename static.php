@@ -433,6 +433,96 @@ location ~ \.php$ {
 
 ';
 
+$attacks = '
+<section>
+<h1>DHCP Starvation</h1>
+<div id="indent">
+
+<h3>Principe</h3>
+<p>Un attaquant envoie en boucle des DHCP REQUEST au serveur DHCP avec des adresses MAC usurpées de sorte à occuper tous les bails disponibles dans un pool.</p>
+<p>Si menée avec succès cette attaque mène à un déni de service : le serveur DHCP ne peut plus attribuer de bails aux clients.</p>
+<h2>POC</h2>
+<div id="indent">
+<h3>Outils utilisés </h3>
+<ul>
+<li><a href="http://dhcpstarv.sourceforge.net/">dhcpstarv</a></li>
+<li>tcpdump</li>
+<li>Machine virtuelle Debian Buster</li>
+</ul>
+<p>Attaque : <a href="https://ucafr-my.sharepoint.com/:v:/g/personal/clement_oziol_etu_uca_fr/EUYynTzPbEBDoaIX0wZidZIBvvuFYEZv0x0L0LNavKuynQ?e=PvGLb5">Vidéo</a></p>
+<code>
+                                 ┌────────────────────────────────────────────────────┐
+                                 │                                                    │
+                                 │                     LibreNMS                       │
+                                 │                                                    │
+┌───────────────────┐            │  ┌─────────────────┐       ┌────────────────┐      │
+│                   │    Syslog  │  │                 │       │                │      │
+│    Commutateur    ├────────────┼──►    Ingestion    ├───────►    Analyse     │      │
+│                   │            │  │                 │       │                │      │
+└───────────────────┘            │  └─────────────────┘       └────────┬───────┘      │
+                                 │                                     │              │
+                                 │                                     │              │
+                                 │                                     │              │
+                                 │ ┌────────────────┐         ┌────────▼───────┐      │
+                                 │ │                │         │                │      │
+               HTTP              │ │  Notification  │  MATCH! │   Filtre pour  │      │
+      ┌──────────────────────────┼─┤    de l\'API    ◄─────────┤     alerte     │      │
+      │                          │ │                │         │                │      │
+      │                          │ └────────────────┘         └────────┬───────┘      │
+      │                          │                                     │              │
+      │                          │                                     │ Pas de match │
+      │                          │                                     │              │
+      │                          │                                     │              │
+      │                          │                                     ▼              │
+      │                          │                            Fonctionnement normal   │
+      │                          │                                                    │
+      │                          └────────────────────────────────────────────────────┘
+      │
+┌─────┼────────────────────────────────────────────────┐
+│     │                                                │
+│     │            API "Equip_monitor"                 │
+│     │                                                │
+│ ┌───▼────────────┐         ┌──────────────────────┐  │
+│ │                │         │  Extraction adresses │  │
+│ │  /log-event    ├─────────►         MAC          │  │
+│ │                │         │                      │  │
+│ └────────────────┘         └──────────┬───────────┘  │
+│                                       │              │
+│                                       │              │
+│ ┌─────────────────────────────────────▼────────────┐ │
+│ │                                                  │ │
+│ │    Correlation MAC source <=> interface du SW    │ │
+│ │                                                  │ │
+│ └─────┬────────────────────────────────────────────┘ │
+│       │                                              │
+│       │         ┌───────────────────────────────┐    │
+│       │         │                               │    │
+│       └─────────►    Enregistrement dans BDD    │    │
+│                 │                               │    │
+│                 └───────────────────▲───────────┘    │
+│                                     │                │
+│                          ┌──────────┴───────┐        │
+│                          │                  │        │
+│                          │    /get-logs     │        │
+│                          │                  │        │
+│                          └──────────▲───────┘        │
+│                                     │                │
+└─────────────────────────────────────┼────────────────┘
+                                      │
+                                      │
+                                      │
+             ┌────────────────────────┴────────────┐
+             │                                     │
+             │        Code PHP "Matériels"         │
+             │              (ce site)              │
+             └─────────────────────────────────────┘
+</code>
+</div>
+
+</div>
+</section>
+';
+
 
 ?>
 

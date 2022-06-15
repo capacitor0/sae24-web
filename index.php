@@ -59,7 +59,7 @@
             echo $services;
 
         } elseif ($_GET["page"] == "attacks") {
-            # code...
+            echo $attacks;
 
         } elseif ($_GET["page"] == "skills") {
             echo $skills;
