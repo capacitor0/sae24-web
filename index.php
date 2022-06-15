@@ -40,7 +40,21 @@
         } elseif ($_GET["page"] == "topologie") {
             echo $topo;
         } elseif ($_GET["page"] == "devices") {
-            deviceFlexGrid();
+            $auth = false;
+            if (!isset($_SERVER['PHP_AUTH_USER'])) {
+                auth:
+                header('WWW-Authenticate: Basic realm="Partie sécurisée"');
+                header('HTTP/1.0 401 Unauthorized');
+                exit;
+            } else {
+                if ($_SERVER['PHP_AUTH_USER'] == "admin" && $_SERVER['PHP_AUTH_PW'] == "mdpSecure") {
+                    deviceFlexGrid();
+                } else {
+                    echo '<section><p>Vous n\'êtes pas authentifié!</p></section>';
+                    goto auth;
+                }
+            }
+            
         } elseif ($_GET["page"] == "services") {
             echo $services;
 
