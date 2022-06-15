@@ -17,7 +17,7 @@
         <div>
             <a href="index.php?page=home">Accueil</a>
             <a href="index.php?page=topologie">Topologie</a>
-            <a href="index.php?page=devices">Matériels</a>
+            <a href="index.php?page=devices">Network devices</a>
             <a href="index.php?page=services">Services</a>
             <a href="index.php?page=attacks">Attaques</a>
             <a href="index.php?page=skills">Compétences</a>
