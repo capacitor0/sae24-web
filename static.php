@@ -450,6 +450,17 @@ $attacks = '
 <li>Machine virtuelle Debian Buster</li>
 </ul>
 <p>Attaque : <a href="https://ucafr-my.sharepoint.com/:v:/g/personal/clement_oziol_etu_uca_fr/EUYynTzPbEBDoaIX0wZidZIBvvuFYEZv0x0L0LNavKuynQ?e=PvGLb5">Vidéo</a></p>
+</div>
+<h2>Mitigation</h2>
+<p>Activer le DHCP snooping sur les commutateurs edge (cf. partie topologie). Définir les interfaces vers le réseau de fédération / distrinution comme étant de confiance.</p>
+<ul>
+<li></li>
+</ul>
+<h2>Détection</h2>
+<p>La détéction se base sur la récupération des logs des commutateurs "edge". S\'en suit le déclenchement d\'une alerte selon le conditions suivantes :</p>
+<code>syslog.program LIKE \'%DHCP_SNOOPING-5-DHCP_SNOOPING_M%\' AND syslog.timestamp >= macros.past_5m</code>
+<p>Concrétement on regarde si il y a eu un log qui contient "DHCP_SNOOPING-5-DHCP_SNOOPING_M)" (préfixe pour les logs du DHCP snooping lors d\'une usurpation d\'adresse MAC) sur les 5 dernières minutes</p>
+<p>La situation peut être schématisée comme suit : </p>
 <code>
                                  ┌────────────────────────────────────────────────────┐
                                  │                                                    │
@@ -517,7 +528,7 @@ $attacks = '
              │              (ce site)              │
              └─────────────────────────────────────┘
 </code>
-</div>
+
 
 </div>
 </section>
