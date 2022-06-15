@@ -20,7 +20,7 @@
             <a href="index.php?page=devices">Network devices</a>
             <a href="index.php?page=services">Services</a>
             <a href="index.php?page=attacks">Attaques</a>
-            <a href="index.php?page=issues">Encountered issues</a>
+            <a href="index.php?page=issues">Issues encountered</a>
             <a href="index.php?page=contact">Contact</a>
         </div>
     </header>
