@@ -21,7 +21,7 @@
             <a href="index.php?page=services">Services</a>
             <a href="index.php?page=attacks">Attaques</a>
             <a href="index.php?page=skills">Compétences</a>
-            <a href="index.php?page=issues">Problèmes rencontrés</a>
+            <a href="index.php?page=issues">Encountered issues</a>
             <a href="index.php?page=contact">Contact</a>
         </div>
     </header>
