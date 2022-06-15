@@ -453,9 +453,7 @@ $attacks = '
 </div>
 <h2>Mitigation</h2>
 <p>Activer le DHCP snooping sur les commutateurs edge (cf. partie topologie). Définir les interfaces vers le réseau de fédération / distrinution comme étant de confiance.</p>
-<ul>
-<li></li>
-</ul>
+<p>On s\'en sert ici pour n\'autoriser le gain de bails DHCP qu\'à travers certains port et détécter l\'usurpation d\'adresse MAC.</p>
 <h2>Détection</h2>
 <p>La détéction se base sur la récupération des logs des commutateurs "edge". S\'en suit le déclenchement d\'une alerte selon le conditions suivantes :</p>
 <code>syslog.program LIKE \'%DHCP_SNOOPING-5-DHCP_SNOOPING_M%\' AND syslog.timestamp >= macros.past_5m</code>
