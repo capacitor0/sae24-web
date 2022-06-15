@@ -120,6 +120,7 @@ $topo = '
 <h1>Topologie</h1>
 <img src="res/topologie.png" alt="Topologie" style="width: 80vw;height: auto; margin-left: -5%">
 <h2>Table des VLANs et réseaux</h2>
+<div id="indent">
 <table>
 <tr>
 <th>n° VLAN</th>
@@ -152,6 +153,7 @@ $topo = '
 <td>Technique</td>
 </tr>
 </table>
+</div>
 <h2>Configurations communes à tous les équipements</h2>
 
 
