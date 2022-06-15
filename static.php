@@ -3,7 +3,7 @@ $skills = '<section>
 <h1>Compétences</h1>
 <em>Sur ⭐️⭐️⭐️⭐️⭐️</em>
 <div id="indent">
-    <h3>Techniques</h3>
+    <h2>Techniques</h2>
     <div id="indent">
         <ul>
             <li id="part-info">Informatique ⭐️⭐️⭐️⭐️ :</li>
@@ -42,7 +42,7 @@ $skills = '<section>
             </ul>
         </ul>
     </div>
-    <h3>Humaines</h3>
+    <h2>Humaines</h2>
     <div id="indent">
         <ul>
             <li>Autonomie ⭐️⭐️⭐️⭐️⭐️</li>
@@ -74,7 +74,7 @@ $home = '<section id="sae24">
     <div id="indent">
         <p id="time">Début du projet le <b>19 Mai 2022</b> et fin le <b>15 Juin 2022</b> pour évaluation.
         </p>
-        <h3>Descriptif</h3>
+        <h2>Descriptif</h2>
         <div id="indent">
             <p>Réalisation d\'une petite infrastructure informatique dans un environnement de
                 simulation de réseaux (<a href="https://www.gns3.com/">GNS3</a>) dans un cadre Universitaire.</p>
@@ -119,7 +119,40 @@ $topo = '
 <section>
 <h1>Topologie</h1>
 <img src="res/topologie.png" alt="Topologie" style="width: 80vw;height: auto; margin-left: -5%">
-<h3>Configurations communes à tous les équipements</h3>
+<h2>Table des VLANs et réseaux</h2>
+<table>
+<tr>
+<th>n° VLAN</th>
+<th>Réseau IP</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>99</td>
+<td>10.10.99.0/24</td>
+<td>Management des équipements</td>
+</tr>
+<tr>
+<td>100</td>
+<td>10.10.10.0/24</td>
+<td>Serveurs</td>
+</tr>
+<tr>
+<td>101</td>
+<td>10.10.11.0/24</td>
+<td>RH</td>
+</tr>
+<tr>
+<td>102</td>
+<td>10.10.12.0/24</td>
+<td>Finance</td>
+</tr>
+<tr>
+<td>103</td>
+<td>10.10.12.0/24</td>
+<td>Technique</td>
+</tr>
+</table>
+<h2>Configurations communes à tous les équipements</h2>
 
 
 
@@ -165,7 +198,7 @@ ip dhcp snooping</code>
 ip dhcp snooping trust</code>
 </div>
 </div>
-<h3>Routeur0</h3>
+<h2>Routeur0</h2>
 <div id="indent">
 
 <h4>Fonction remplies</h4>
@@ -207,12 +240,12 @@ access-list 10 deny   any</code>
  <p>Configuration du DNAT pour accéder au serveur Web</p>
  <code>ip nat inside source static tcp 10.10.10.12 80 10.200.200.2 50999</code>
 </div>
-<h3>SwitchFederateur0</h3>
+<h2>SwitchFederateur0</h2>
 <div id="indent">
 <p>Configuration du STP</p>
 <code>spanning-tree vlan 1,99-103 root primary (racine primaire)</code>
 </div>
-<h3>SwitchFederateur1</h3>
+<h2>SwitchFederateur1</h2>
 <div id="indent">
 <p>Configuration du STP</p>
 <code>spanning-tree vlan 1,99-103 root secondary (racine secondaire)</code>
@@ -438,12 +471,12 @@ $attacks = '
 <h1>DHCP Starvation</h1>
 <div id="indent">
 
-<h3>Principe</h3>
+<h2>Principe</h2>
 <p>Un attaquant envoie en boucle des DHCP REQUEST au serveur DHCP avec des adresses MAC usurpées de sorte à occuper tous les bails disponibles dans un pool.</p>
 <p>Si menée avec succès cette attaque mène à un déni de service : le serveur DHCP ne peut plus attribuer de bails aux clients.</p>
 <h2>POC</h2>
 <div id="indent">
-<h3>Outils utilisés </h3>
+<h2>Outils utilisés </h2>
 <ul>
 <li><a href="http://dhcpstarv.sourceforge.net/">dhcpstarv</a></li>
 <li>tcpdump</li>

@@ -52,13 +52,17 @@ section h1 {
 }
 
 /*formattage de la table*/
-tr td:nth-child(2) {
+tr td:nth-child(even) {
+  padding-right: 5%;
   padding-left: 5%;
-  width: 70%;
+  
 }
 
-tr td:nth-child(1) {
+tr td:nth-child(odd) {
+  padding-right: 5%;
+  padding-left: 5%;
   border-right: 1px solid black;
+  border-left: 1px solid black;
   width: 20%;
 }
 
