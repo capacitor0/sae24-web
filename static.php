@@ -594,6 +594,7 @@ $attacks = '
 <h2>Mitigation</h2>
 
 <p>On active le DHCP de façon similaire à précédemment  de sorte que les DHCP DISCOVER et REQUEST ne soient diffusée que sur les interfaces de confiance.</p>
+<p>Après mitigation : <a target="_blank" href="https://ucafr-my.sharepoint.com/:v:/g/personal/clement_oziol_etu_uca_fr/ETf3zd_M735AqlZBAyfZuEIB5hqk-TsrHPyvZaGtgEL-RA?e=f4B2Xv">Vidéo</a></p>
 
 <h2>Détection</h2>
 
