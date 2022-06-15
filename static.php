@@ -208,6 +208,7 @@ ip dhcp snooping trust</code>
 <li>Routage entre les VLAN</li>
 <li>NAT avec l\'interface tap0 de l\'objet WAN</li>
 <li>DNAT de 10.200.200.2 (TCP 50999) vers 10.10.10.12 (TCP 80)</li>
+<li>DNAT de 10.200.200.2 (TCP 50777) vers 10.10.10.11 (TCP 80)</li>
 </ul>
 
 <h4>Configurations spécifiques</h4>
@@ -241,6 +242,8 @@ access-list 10 deny   any</code>
 
  <p>Configuration du DNAT pour accéder au serveur Web</p>
  <code>ip nat inside source static tcp 10.10.10.12 80 10.200.200.2 50999</code>
+ <p>Configuration du DNAT pour accéder au serveur de supervision</p>
+ <code>ip nat inside source static tcp 10.10.10.11 80 10.200.200.2 50777</code>
 </div>
 <h2>SwitchFederateur0</h2>
 <div id="indent">
@@ -485,8 +488,8 @@ $attacks = '
 <div id="indent">
 
 <h2>Principe</h2>
-<p>Un attaquant envoie en boucle des DHCP REQUEST au serveur DHCP avec des adresses MAC usurpées de sorte à occuper tous les bails disponibles dans un pool.</p>
-<p>Si menée avec succès cette attaque mène à un déni de service : le serveur DHCP ne peut plus attribuer de bails aux clients.</p>
+<p>Un attaquant envoie en boucle des DHCP REQUEST au serveur DHCP avec des adresses MAC usurpées de sorte à occuper tous les baux disponibles dans un pool.</p>
+<p>Si menée avec succès cette attaque mène à un déni de service : le serveur DHCP ne peut plus attribuer de baux aux clients.</p>
 <h2>POC</h2>
 <div id="indent">
 <h2>Outils utilisés </h2>
@@ -495,15 +498,15 @@ $attacks = '
 <li>tcpdump</li>
 <li>Machine virtuelle Debian Buster</li>
 </ul>
-<p>Attaque : <a href="https://ucafr-my.sharepoint.com/:v:/g/personal/clement_oziol_etu_uca_fr/EUYynTzPbEBDoaIX0wZidZIBvvuFYEZv0x0L0LNavKuynQ?e=PvGLb5">Vidéo</a></p>
+<p>Attaque : <a target="_blank" href="https://ucafr-my.sharepoint.com/:v:/g/personal/clement_oziol_etu_uca_fr/EUYynTzPbEBDoaIX0wZidZIBvvuFYEZv0x0L0LNavKuynQ?e=PvGLb5">Vidéo</a></p>
 </div>
 <h2>Mitigation</h2>
-<p>Activer le DHCP snooping sur les commutateurs edge (cf. partie topologie). Définir les interfaces vers le réseau de fédération / distrinution comme étant de confiance.</p>
-<p>On s\'en sert ici pour n\'autoriser le gain de bails DHCP qu\'à travers certains port et détécter l\'usurpation d\'adresse MAC (MAC Client du paquet DHCP est différente de la MAC source Ethernet).</p>
+<p>Activer le DHCP snooping sur les commutateurs edge (cf. partie topologie). Définir les interfaces vers le réseau de fédération / distribution comme étant de confiance.</p>
+<p>On s\'en sert ici pour n\'autoriser le gain de baux DHCP qu\'à travers certains port et détecter l\'usurpation d\'adresse MAC (MAC Client du paquet DHCP est différente de la MAC source Ethernet).</p>
 <h2>Détection</h2>
-<p>La détéction se base sur la récupération des logs des commutateurs "edge". S\'en suit le déclenchement d\'une alerte selon les conditions suivantes :</p>
+<p>La détection se base sur la récupération des logs des commutateurs "edge". S\'en suit le déclenchement d\'une alerte selon les conditions suivantes :</p>
 <code>syslog.program LIKE \'%DHCP_SNOOPING-5-DHCP_SNOOPING_M%\' AND syslog.timestamp >= macros.past_5m</code>
-<p>Concrétement on regarde si il y a eu un log qui contient "DHCP_SNOOPING-5-DHCP_SNOOPING_M)" (préfixe pour les logs du DHCP snooping lors d\'une usurpation d\'adresse MAC) sur les 5 dernières minutes</p>
+<p>Concrètement on regarde si il y a eu un log qui contient "DHCP_SNOOPING-5-DHCP_SNOOPING_M" (préfixe pour les logs du DHCP snooping lors d\'une usurpation d\'adresse MAC) sur les 5 dernières minutes</p>
 <p>La situation peut être schématisée comme suit : </p>
 <code>
                                  ┌────────────────────────────────────────────────────┐
@@ -572,7 +575,29 @@ $attacks = '
              │              (ce site)              │
              └─────────────────────────────────────┘
 </code>
+<p>Vidéo après mitigation : <a target="_blank" href="https://ucafr-my.sharepoint.com/:v:/g/personal/clement_oziol_etu_uca_fr/EVcbWMt23R1Jiq1MpT7DiusB-myyCdtR2mOHTOE6m5jIEw?e=ODuCe0">ici</a></p>
+</div>
+<h1>Rogue DHCP Server</h1>
+<div id="indent">
+<h2>Principe</h2>
+<p>Un attaquant lance un serveur DHCP sur le réseau dans le but de donner des configurations malicieuses aux clients. Par exemple il peut potentiellement indiquer une passerelle malicieuse qu\'il contrôle pour mener une écoute sur le traffic.</p>
+<h2>POC</h2>
+<div id="indent">
+<h2>Outils utilisés </h2>
+<ul>
+<li>dhclient</li>
+<li>ISC DHCP Server</li>
+<li>Machine virtuelle Debian Buster</li>
+<p>Attaque : <a target="_blank" href="https://ucafr-my.sharepoint.com/:v:/g/personal/clement_oziol_etu_uca_fr/EWEB3gTx0OtKoCxfyn-Z9iABGpfl_VHVQxyrB5jVgFG4lg?e=CCQifI">Vidéo</a></p>
+</ul>
+</div>
+<h2>Mitigation</h2>
 
+<p>On active le DHCP de façon similaire à précédemment  de sorte que les DHCP DISCOVER et REQUEST ne soient diffusée que sur les interfaces de confiance.</p>
+
+<h2>Détection</h2>
+
+<p>De par la nature de la mitigation il est impossible de détecter une telle attaque a priori. Une solution serait de mettre une sonde au niveau même du switch qui envoi des DHCP Discover sur les ports qui ne sont pas de confiance.</p>
 
 </div>
 </section>
