@@ -160,3 +160,17 @@ code {
   display: block;
   white-space: pre-wrap;
 }
+
+#bouton {
+  background-color: white;
+  color: black;
+  background-color: #f9bc2c;
+  border: 2px solid #f9bc2c; /* Green */
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#bouton > a {
+  text-decoration: none;
+  color: black;
+}
