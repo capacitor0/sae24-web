@@ -56,7 +56,7 @@ $skills = '<section>
 
 
 $issues = '<section>
-<h1>Problèmes rencontrés</h1>
+<h1>Encountered issues</h1>
 <div id="indent">
 <ul>
 <li><p>Cisco Catalyst switches emulated with Dynamips don\'t support DHCP snooping. => I had to use new images (Cicso VIRL IOSvL2, emulated with QEMU) which have much higher requirements in computer resources.</p></li>
