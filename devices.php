@@ -6,7 +6,17 @@ $devices = [
     "SwitchTechnique" => "10.10.99.63",
     "SwitchServeurs" => "10.10.99.61",
     "SwitchFederateur0" => "10.10.99.65",
-    "SwitchFederateur1" => "10.10.99.64",
+    "SwitchFederateur1" => "10.10.99.64"
+];
+
+$libreNms = [
+    "10.10.99.20" => "7",
+    "10.10.99.66" => "18",
+    "10.10.99.62" => "13",
+    "10.10.99.63" => "14",
+    "10.10.99.61" => "17",
+    "10.10.99.65" => "16",
+    "10.10.99.64" => "15"
 ];
 
 $lastUpdated = file_get_contents("http://10.10.10.11:8899/get-last-backup");
@@ -16,6 +26,7 @@ function deviceFlexGrid() {
 
     global $devices;
     global $jsonLastUpdate;
+    global $libreNms;
     echo '<section>
     <h1>Matériels</h1>
     <div id="indent">';
@@ -31,6 +42,7 @@ function deviceFlexGrid() {
             $count = $count . '<a href="index.php?page=attaque&dev=' . $ip .'">Voir</a>';
         }
         echo '<li><b>Activités DHCP suspicieuses détéctées :</b> ' .  $count . '</li>';
+        echo '<li><a href="http://172.25.249.7:7777/device/' . $libreNms[$ip] . '">Visualiser dans LibreNMS</a></li>';
         echo '</ul>';
         echo '</div>';
     }

@@ -464,6 +464,17 @@ location ~ \.php$ {
 </code>
 
 </div>
+<h1>TFTP</h1>
+<div id="indent">
+<p>Utilisé pour la récupération de données depuis les commutateurs (table des adresses MAC + config)</p>
+<code># /etc/default/tftpd-hpa
+
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/srv/tftp/cisco_data"
+TFTP_ADDRESS="10.10.99.254:69"
+TFTP_OPTIONS="--secure --create -v"
+</code>
+</div>
 </section>
 
 ';

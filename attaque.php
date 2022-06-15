@@ -10,6 +10,7 @@ function showAttaques($ip) {
 
     echo '<section>
     <h1>' . $arrIpToDev[$ip] . '</h1>
+    <div id="indent">
     <table>
     <tr>
     <th>Date</th>
@@ -22,6 +23,7 @@ function showAttaques($ip) {
             </tr>';
     }
     echo '</table>
+    </div>
     </section>';
 }
 
